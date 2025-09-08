@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Mission : Dernier Accès</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: black;
+      color: red;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 10em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px red;
+    }
+
+    input[type="text"] {
+      padding: 20px;
+      font-size: 40px;
+      background-color: black;
+      border: 2px solid red;
+      color: red;
+      width: 60%;
+      margin-top: 50px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 50px;
+      background-color: red;
+      color: black;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #successMessage {
+      display: none;
+      color: lime;
+      font-size: 28px;
+      margin-top: 30px;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+p {
+  font-size: 35px;   /* augmente la taille */
+  margin-bottom: 15px;
+}
+
+
+    /* LASER background effect */
+    .laser {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .laser span {
+      position: absolute;
+      width: 2px;
+      height: 100vh;
+      background: red;
+      animation: flicker 2s infinite ease-in-out;
+      opacity: 0.1;
+    }
+
+    .laser span:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .laser span:nth-child(2) { left: 30%; animation-delay: 0.3s; }
+    .laser span:nth-child(3) { left: 50%; animation-delay: 0.6s; }
+    .laser span:nth-child(4) { left: 70%; animation-delay: 0.9s; }
+    .laser span:nth-child(5) { left: 90%; animation-delay: 1.2s; }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    /* Terminal-style blinking cursor */
+    #blinker {
+      display: inline-block;
+      width: 10px;
+      background-color: lime;
+      animation: blink 0.8s infinite;
+      height: 24px;
+      margin-left: 5px;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Lasers -->
+  <div class="laser">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="content">
+    <h1>ACCÈS SÉCURISÉ</h1>
+    <p>Entrez le mot secret collecté durant votre mission :</p>
+    <input type="text" id="passwordInput" placeholder="Mot secret...">
+    <br>
+    <button onclick="checkPassword()">Valider</button>
+    <div id="successMessage">✅ Bravo, mission accomplie<span id="blinker"></span></div>
+  </div>
+
+  <audio id="missionAudio" autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/05/audio_c761b9f125.mp3?filename=mission-impossible-theme-118280.mp3" type="audio/mp3">
+  </audio>
+
+  <script>
+    function checkPassword() {
+  const possiblePasswords = ["VOYAGES", "Voyages", "voyages"]; // toutes les variantes possibles
+  const userInput = document.getElementById("passwordInput").value.trim().toLowerCase();
+
+  // On vérifie si l'input est dans la liste
+  if (possiblePasswords.some(p => p.toLowerCase() === userInput)) {
+    document.getElementById("successMessage").style.display = "block";
+    setTimeout(() => {
+      window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSeaYZsFP1S79xhQriJ-uhvc8k0hzK80kUy1YIB2MFm8_gsG_w/viewform?usp=header"; // Ton lien final
+    }, 2500);
+  } else {
+    alert("Mot de passe incorrect.");
+  }
+}
+  </script>
+</body>
+</html>
